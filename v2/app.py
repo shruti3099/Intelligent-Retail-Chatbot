@@ -2,7 +2,7 @@ import SQLAlchemy
 import openai
 import re
 import streamlit as st
-from prompts import get_system_prompt
+from prompt import get_system_prompt
 
 st.title("Hi, I am an intelligent chatbot! Ask me anything about the Big Supply's data")
 
