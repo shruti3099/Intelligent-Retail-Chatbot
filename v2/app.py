@@ -1,4 +1,4 @@
-import SQLAlchemy
+import sqlalchemy
 import openai
 import re
 import streamlit as st
