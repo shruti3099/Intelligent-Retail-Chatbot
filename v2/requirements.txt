@@ -1,4 +1,2 @@
 SQLAlchemy==1.4.0
 openai
-re
-streamlit
