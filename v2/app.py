@@ -1,0 +1,67 @@
+import openai
+import re
+import streamlit as st
+from prompt import get_system_prompt, get_table_context
+
+st.title("Hi, ask me anything about the data!")
+
+# Initialize the chat messages history
+openai.api_key = st.secrets.OPENAI_API_KEY
+if "messages" not in st.session_state:
+    # System prompt includes table information, rules, and prompts the LLM to produce
+    # a welcome message to the user.
+    st.session_state.messages = [{"role": "system", "content": get_system_prompt()}]
+
+# MySQL connection configuration
+mysql_config = {
+    'user': 'root',
+    'password': 'Tina3099',
+    'host': '127.0.0.1',
+    'database': 'RetailData'  # Replace with your actual schema/database name
+}
+
+# Establish MySQL connection
+try:
+    mysql_connection = mysql.connector.connect(**mysql_config)
+    st.markdown("MySQL connection successful!")
+except mysql.connector.Error as err:
+    st.error(f"Error: Unable to connect to MySQL - {err}")
+
+# Prompt for user input and save
+if prompt := st.chat_input():
+    st.session_state.messages.append({"role": "user", "content": prompt})
+
+# Display the existing chat messages
+for message in st.session_state.messages:
+    if message["role"] == "system":
+        continue
+    with st.chat_message(message["role"]):
+        st.write(message["content"])
+        if "results" in message:
+            st.dataframe(message["results"])
+
+# If the last message is not from the assistant, we need to generate a new response
+if st.session_state.messages[-1]["role"] != "assistant":
+    with st.chat_message("assistant"):
+        response = ""
+        resp_container = st.empty()
+        for delta in openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": m["role"], "content": m["content"]} for m in st.session_state.messages],
+            stream=True,
+        ):
+            response += delta.choices[0].delta.get("content", "")
+            resp_container.markdown(response)
+
+        message = {"role": "assistant", "content": response}
+        # Parse the response for a SQL query and execute if available
+        sql_match = re.search(r"```sql\n(.*)\n```", response, re.DOTALL)
+        if sql_match:
+            sql = sql_match.group(1)
+            if mysql_connection:
+                cursor = mysql_connection.cursor()
+                cursor.execute(sql)
+                message["results"] = cursor.fetchall()
+                cursor.close()
+            st.dataframe(message["results"])
+        st.session_state.messages.append(message)
