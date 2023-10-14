@@ -1,4 +1,3 @@
-pip install SQLAlchemy==1.4.0
 import openai
 import re
 import streamlit as st
