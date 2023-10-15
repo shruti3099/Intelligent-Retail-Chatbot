@@ -90,9 +90,9 @@ Here are the columns of the {'.'.join(table)}
 def get_system_prompt():
     table_context = ""
     for table_name in QUALIFIED_TABLE_NAMES:
-    table_context += get_table_context(
-        table_name=table_name,
-        table_description=TABLE_DESCRIPTIONS.get(table_name, ""),
+        table_context += get_table_context(
+            table_name=table_name,
+            table_description=TABLE_DESCRIPTIONS.get(table_name, ""),
 #metadata_query=METADATA_QUERIES.get(table_name, None)
     )
     return GEN_SQL.format(context=table_context)
