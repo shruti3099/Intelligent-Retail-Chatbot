@@ -1,2 +1,2 @@
 SQLAlchemy==1.4.0
-openai
+openai==0.28.1
