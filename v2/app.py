@@ -7,7 +7,7 @@ from prompt import get_system_prompt
 st.title("Hi, I am an intelligent chatbot! Ask me anything about the Big Supply's data")
 
 # Initialize the chat messages history
-openai.api_key = st.secrets.OPENAI_API_KEY
+openai.api_key = st.secrets.openai_key
 if "messages" not in st.session_state:
     # system prompt includes table information, rules, and prompts the LLM to produce
     # a welcome message to the user.
