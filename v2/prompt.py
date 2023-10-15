@@ -95,7 +95,7 @@ def get_system_prompt():
     table_description=TABLE_DESCRIPTIONS.get(table_name, ""),
 #metadata_query=METADATA_QUERIES.get(table_name, None)
     )
-    return GEN_SQL.format(context=table_context)
+        return GEN_SQL.format(context=table_context)
 
 # do `streamlit run prompts.py` to view the initial system prompt in a Streamlit app
 if __name__ == "__main__":
