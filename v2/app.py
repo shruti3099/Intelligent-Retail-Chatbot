@@ -1,4 +1,5 @@
 import sqlalchemy
+import MySQLdb
 import openai
 import re
 import streamlit as st
