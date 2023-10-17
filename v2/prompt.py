@@ -84,24 +84,14 @@ Here are the columns of the {'.'.join(table)}
 
 <columns>\n\n{columns}\n\n</columns>
     """
-    # if metadata_query:
-    #     metadata = conn.query(metadata_query)
-    #     metadata = "\n".join(
-    #         [
-    #             f"- **{metadata['VARIABLE_NAME'][i]}**: {metadata['DEFINITION'][i]}"
-    #             for i in range(len(metadata["VARIABLE_NAME"]))
-    #         ]
-    #     )
-    #     context = context + f"\n\nAvailable variables by VARIABLE_NAME:\n\n{metadata}"
-    # return context
+    return context
 
 def get_system_prompt():
-    table_context1 = ""
+    table_context = ""
     for table_name in QUALIFIED_TABLE_NAMES:
-        table_context2 = get_table_context(
+        table_context =+ get_table_context(
             table_name=table_name,
             table_description=TABLE_DESCRIPTIONS.get(table_name, ""))
-        table_context1 =+ table_context2
     return GEN_SQL.format(context=table_context)
 
 # do `streamlit run prompts.py` to view the initial system prompt in a Streamlit app
