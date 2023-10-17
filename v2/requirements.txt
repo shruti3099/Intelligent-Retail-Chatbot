@@ -1,4 +1,3 @@
 openai==0.28.1
 snowflake-snowpark-python
-python==3.8
 
