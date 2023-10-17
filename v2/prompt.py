@@ -1,15 +1,23 @@
 import streamlit as st
 
 QUALIFIED_TABLE_NAMES = [
-    "RetailData.customers",
-    "RetailData.categories"]
+    "RETAILDATA.BIGSUPPLYCO.CUSTOMERS",
+    "RETAILDATA.BIGSUPPLYCO.CATEGORIES",
+"RETAILDATA.BIGSUPPLYCO.PRODUCTS",
+"RETAILDATA.BIGSUPPLYCO.DEPARTMENTS"]
 
 TABLE_DESCRIPTIONS = {
-    "RetailData.customers": """
+    "RETAILDATA.BIGSUPPLYCO.CUSTOMERS": """
         This table has customer data for people who ordered from Big Supply
         """,
-    "RetailData.categories": """
+    "RETAILDATA.BIGSUPPLYCO.CATEGORIES": """
         This table has information about different categories at Big Supply
+        """,
+    "RETAILDATA.BIGSUPPLYCO.PRODUCTS": """
+        This table has information about different products at Big Supply
+        """,
+    "RETAILDATA.BIGSUPPLYCO.DEPARTMENTS": """
+        This table has information about different DEPARTMENTS at Big Supply
         """
 }
 # This query is optional if running Frosty on your own table, especially a wide table.
@@ -55,7 +63,7 @@ Then provide 3 example questions using bullet points.
 @st.cache_data(show_spinner=False)
 def get_table_context(table_name: str, table_description: str):
     table = table_name.split(".")
-    conn = st.experimental_connection("RetailData", type='sql')
+    conn = st.experimental_connection("snowpark")
     columns = conn.query(f"""
         SELECT COLUMN_NAME, DATA_TYPE FROM {table[0].upper()}.INFORMATION_SCHEMA.COLUMNS
         WHERE TABLE_SCHEMA = '{table[0].upper()}' AND TABLE_NAME = '{table[1].upper()}'
