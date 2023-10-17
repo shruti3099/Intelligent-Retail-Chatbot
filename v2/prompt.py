@@ -87,7 +87,7 @@ Here are the columns of the {'.'.join(table)}
     return context
 
 def get_system_prompt():
-    table_context = ""
+    table_context = GEN_SQL
     for table_name in QUALIFIED_TABLE_NAMES:
         table_context = table_context + (get_table_context(
             table_name=table_name,
