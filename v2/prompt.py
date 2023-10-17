@@ -86,28 +86,14 @@ Here are the columns of the {'.'.join(table)}
     """
     return context
 
-# def get_system_prompt():
-#     table_context = ""
-#     for table_name in QUALIFIED_TABLE_NAMES:
-#         table_context = table_context + (get_table_context(
-#             table_name=table_name,
-#             table_description=TABLE_DESCRIPTIONS.get(table_name, "")))
-#     return GEN_SQL.format(context=table_context)
-
 def get_system_prompt():
-    system_intro = "Hello there! I am Chatbot, an AI Snowflake SQL Expert. I specialize in helping you with queries related to the following tables:\n\n"
+    table_context = ""
+    for table_name in QUALIFIED_TABLE_NAMES:
+        table_context = table_context + (get_table_context(
+            table_name=table_name,
+            table_description=TABLE_DESCRIPTIONS.get(table_name, "")))
+    return GEN_SQL.format(context=table_context)
 
-    table_info = ""
-    for table_name, table_description in TABLE_DESCRIPTIONS.items():
-        table_info += f"- Table: {table_name}\n  Description: {table_description}\n\n"
-
-    example_questions = "Here are three example questions you could ask me:\n\n" \
-                        "1. What are the email addresses of customers from California?\n" \
-                        "2. How many categories are there in Big Supply Co's inventory?\n" \
-                        "3. What Products are available at Big Supply Co?.\n\n" \
-                        "Feel free to ask any questions related to these tables!\n"
-
-    return system_intro + table_info + example_questions
 
 # do `streamlit run prompts.py` to view the initial system prompt in a Streamlit app
 if __name__ == "__main__":
