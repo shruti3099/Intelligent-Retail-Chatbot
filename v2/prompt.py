@@ -96,13 +96,12 @@ Here are the columns of the {'.'.join(table)}
     # return context
 
 def get_system_prompt():
-    table_context = ""
+    table_context1 = ""
     for table_name in QUALIFIED_TABLE_NAMES:
-        table_context = table_context + (get_table_context(
+        table_context2 = get_table_context(
             table_name=table_name,
-            table_description=TABLE_DESCRIPTIONS.get(table_name, "")
-#metadata_query=METADATA_QUERIES.get(table_name, None)
-    ))
+            table_description=TABLE_DESCRIPTIONS.get(table_name, ""))
+        table_context1 =+ table_context2
     return GEN_SQL.format(context=table_context)
 
 # do `streamlit run prompts.py` to view the initial system prompt in a Streamlit app
