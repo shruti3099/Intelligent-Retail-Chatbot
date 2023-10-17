@@ -1,5 +1,3 @@
-import sqlalchemy
-import pymysql
 import openai
 import re
 import streamlit as st
@@ -45,7 +43,7 @@ if st.session_state.messages[-1]["role"] != "assistant":
         sql_match = re.search(r"```sql\n(.*)\n```", response, re.DOTALL)
         if sql_match:
             sql = sql_match.group(1)
-            conn = st.experimental_connection('RetailData', type='sql')
+            conn = st.experimental_connection("snowpark")
             message["results"] = conn.query(sql)
             st.dataframe(message["results"])
         st.session_state.messages.append(message)
