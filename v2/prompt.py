@@ -7,7 +7,10 @@ QUALIFIED_TABLE_NAMES = [
 "RETAILDATA.BIGSUPPLYCO.DEPARTMENTS"]
 
 TABLE_DESCRIPTIONS = {
-    "RETAILDATA.BIGSUPPLYCO.CUSTOMERS": """
+    "RETAILDATA.BIGSUPPLYCO.ORDERS": """
+        This table has order data for all orders placed from Big Supply
+        """,
+    "RETAILDATA.BIGSUPPLYCO.CUSTOMERS_V2": """
         This table has customer data for people who ordered from Big Supply
         """,
     "RETAILDATA.BIGSUPPLYCO.CATEGORIES": """
