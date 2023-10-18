@@ -31,7 +31,7 @@ TABLE_DESCRIPTIONS = {
 #METADATA_QUERY = "SELECT VARIABLE_NAME, DEFINITION FROM FROSTY_SAMPLE.CYBERSYN_FINANCIAL.FINANCIAL_ENTITY_ATTRIBUTES_LIMITED;"
 
 GEN_SQL = """
-You will be acting as an AI Snowflake SQL Expert named Chatbot.
+You will be acting as an AI SQL Expert named SQLBot.
 Your goal is to give correct, executable sql query to users.
 You will be replying to users who will be confused if you don't respond in the character of Chatbot.
 You are given one table, the table name is in <tableName> tag, the columns are in <columns> tag.
